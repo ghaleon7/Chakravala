@@ -24,12 +24,15 @@ def chakravala(n):
     """
     #Estas são as excepções para as quais temos de estar preparados
     if n < 0:
-        raise ValueError("O número deve ser positivo")
+        raise ValueError("""Foi usado o número {}. Para este cálculo, O
+                         número deve ser positivo""")
     if not isinstance(n, int):
-        raise ValueError("O parâmetro deve ser inteiro")
+        raise ValueError("""Foi usado o número {}. Para este cálculo, 
+                         o parâmetro deve ser inteiro""")
     if math.sqrt(n).is_integer():
-        raise ValueError("Não pode ser um quadrado perfeito")
-     #Isto inicializa a primeira solução: a^2 - nb^2 = k
+        raise ValueError("""Foi usado o número {}. Para este cálculo, o 
+                         parâmetro não pode ser um quadrado perfeito""")
+    #Isto inicializa a primeira solução: a^2 - nb^2 = k
     b = 1
     hips = (int(math.sqrt(n)), 1 + int(math.sqrt(n)))
     values = (abs(hips[0]**2 - n), abs(hips[1]**2 - n))
