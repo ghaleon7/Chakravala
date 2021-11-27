@@ -40,7 +40,7 @@ def modinv(b,n):
     if gcd == 1:
         return x%n
     else:
-        raise ValueError("Não existe inverso")
+        raise ValueError("Não existe inverso, o mdc é {}".format(gcd))
         
 # =============================================================================
 # OPERAÇÕES INTERNAS À CHAKRAVALA
