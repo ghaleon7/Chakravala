@@ -1,27 +1,34 @@
 # -*- coding: utf-8 -*-
 """
-Esta á uma nova implementação do algoritmo Chakravala para resolução de 
+Esta é uma nova implementação do algoritmo Chakravala para resolução de 
 equações x^2 - Dy^2 = 1 com soluções inteiras. Esta implementação usa recursão.
 """
 
 from math import sqrt
-from _utils import m_method, compose
+from ._utils import m_method, compose
 
 def _chak_recu(a,b,N,i=2):
     """
+    Função recursiva que calcula os valores de x e y.
+    Argumentos:
+        a,b,N - int
+    Devolve:
+        dictio - dict
     """
-    #inicialização do primeiro valor
+    # Inicialização do primeiro valor
     k = a**2 - N*b**2
-    #composição de ternos
+    # Composição de ternos
     m = m_method(a,b,k,N)
     results = (a,b,k)
     brahma = (m, 1, m**2 - N)
     w = compose(results, brahma, N)
-    #diminuição do valor absoluto das soluções
+    # Diminuição do valor absoluto das soluções
     a_ = int(w[0]/abs(k))
     b_ = int(w[1]/abs(k))
     k_ = int(w[2]/k**2)
-    #Solução
+    # Inicialização do vetor de dimensões atualizadas
+    w = (a_,b_,k_)
+    # Solução
     dictio = {'solution_x': a_,
               'solution_y': b_,
               'iterations': i}
@@ -49,26 +56,44 @@ def _chak_recu(a,b,N,i=2):
 
 def chakravala_rec(n):
     """
-    Uma nova implementação do algoritmo da chakravala para implementar recursão
+    Esta função resolve a equação de Pell x^2 - ny^2 = 1 em números inteiros.
+    O input "n" deve ser positivo, inteiro e não-quadrado. 
+    Esta versão usa recursão para efetuar os cálculos. 
+    A solução vem dada em formato de dicionário. A chave "solution_x" diz 
+    respeito ao valor de x que resolve a equação e a chave "solution_y" diz 
+    respeito ao valor de y que resolve a equação. A chave "iterations" indica
+    quantas iterações foram precisas.
+    Exemplo:
+        >> chakravala_rec(7)
+        >> {'solution_x': 8, 'solution_y': 3, 'iterations': 2}
+    Argumentos:
+        n - inteiro
+    Devolve:
+        dictio - dict
     """
-    #Estas são as excepções para as quais temos de estar preparados
+    # Estas são as exceções para as quais temos de estar preparados
     if n < 0:
         raise ValueError("""Foi usado o número {}. Para este cálculo, O
                          número deve ser positivo""")
     if not isinstance(n, int):
         raise ValueError("""Foi usado o número {}. Para este cálculo, 
                          o parâmetro deve ser inteiro""")
-    if math.sqrt(n).is_integer():
+    if sqrt(n).is_integer():
         raise ValueError("""Foi usado o número {}. Para este cálculo, o 
                          parâmetro não pode ser um quadrado perfeito""")
     # Esta parte da função serve somente para encontrar o primeiro valor para 
     # o algoritmo recursivo
     b = 1
+    sq_int = int(sqrt(n))
     k_poss = [
-            (int(sqrt(n)), int(sqrt(n))**2 - n),
-            (int(sqrt(n)) + 1, int(sqrt(n) + 1)**2 - n)
+            (sq_int, sq_int**2 - n),
+            (sq_int + 1, (sq_int + 1)**2 - n)
             ]
+    # Este passo seleciona o tuplo com o menor valor absoluto na segunda coordenada
     (a,k) = min(k_poss, key = lambda t: abs(t[1]))
+    # Pode dar-se o caso de se obter o valor ótimo apenas com o primeiro 
+    # parâmetro. Geralmente acontece a números que estão muito perto de um 
+    # número quadrado.
     if k == 1:
         dictio = {'solution_x': a,
                 'solution_y': b,
