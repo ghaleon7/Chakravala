@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Este código Python serve para treinar e implementar recursão no código
-A ideia será resolver a equação de Pell x^2 - ny^2 = 1 usando Chakravala, 
+Este código Python serve para resolver a equação de Pell x^2 - ny^2 = 1 usando Chakravala, 
 o método indiano
 """
-import math
+from math import sqrt
 import numpy as np
 
 from ._utils import m_method, compose
@@ -22,23 +21,23 @@ def chakravala(n):
         Solução: x = 7, y = 4
         Deve devolver: {'solution_x': 2, 'solution_y': 1, 'iterations': 1}
     """
-    #Estas são as excepções para as quais temos de estar preparados
+    # Estas são as exceções para as quais temos de estar preparados
     if n < 0:
         raise ValueError("""Foi usado o número {}. Para este cálculo, O
                          número deve ser positivo""")
     if not isinstance(n, int):
         raise ValueError("""Foi usado o número {}. Para este cálculo, 
                          o parâmetro deve ser inteiro""")
-    if math.sqrt(n).is_integer():
+    if sqrt(n).is_integer():
         raise ValueError("""Foi usado o número {}. Para este cálculo, o 
                          parâmetro não pode ser um quadrado perfeito""")
-    #Isto inicializa a primeira solução: a^2 - nb^2 = k
+    # Isto inicializa a primeira solução: a^2 - nb^2 = k
     b = 1
-    hips = (int(math.sqrt(n)), 1 + int(math.sqrt(n)))
+    hips = (int(sqrt(n)), 1 + int(sqrt(n)))
     values = (abs(hips[0]**2 - n), abs(hips[1]**2 - n))
     a = hips[np.argmin(values)]
     k = a**2 - n
-    #Este array contém a primeira solução desta equação
+    # Este array contém a primeira solução desta equação
     results = (a,b,k)
     i = 1
     while abs(results[2]) not in set((1,2)):
