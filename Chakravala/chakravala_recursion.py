@@ -5,7 +5,7 @@ equações x^2 - Dy^2 = 1 com soluções inteiras. Esta implementação usa recu
 """
 
 from math import sqrt
-from ._utils import m_method, compose
+from _utils import m_method, compose
 
 def _chak_recu(a,b,N,i=2):
     """
@@ -29,24 +29,24 @@ def _chak_recu(a,b,N,i=2):
     # Inicialização do vetor de dimensões atualizadas
     w = (a_,b_,k_)
     # Solução
-    dictio = {'solution_x': a_,
-              'solution_y': b_,
-              'iterations': i}
+    dictio = {'sol_x': a_,
+              'sol_y': b_,
+              'its': i}
     # Casos especiais que terminam a realização de contas demoradas.
     if k_ == 1:
         return dictio
     elif k_ == -1:
         w = compose(w, w, N)
-        dictio = {'solution_x': w[0],
-                'solution_y': w[1],
-                'iterations' : i}
+        dictio = {'sol_x': w[0],
+                'sol_y': w[1],
+                'its' : i}
         return dictio
     elif k_ == 2:
         w = compose(w, w, N)
         w = [int(w[0]/2), int(w[1]/2), 1]
-        dictio = {'solution_x': w[0],
-                'solution_y': w[1],
-                'iterations' : i}
+        dictio = {'sol_x': w[0],
+                'sol_y': w[1],
+                'its' : i}
         return dictio
     # Se não obtivermos nenhum dos valores anteriores, repetimos o cálculo
     else:
@@ -73,13 +73,13 @@ def chakravala_rec(n):
     """
     # Estas são as exceções para as quais temos de estar preparados
     if n < 0:
-        raise ValueError("""Foi usado o número {}. Para este cálculo, O
+        raise ValueError(f"""Foi usado o número {n}. Para este cálculo, O
                          número deve ser positivo""")
     if not isinstance(n, int):
-        raise ValueError("""Foi usado o número {}. Para este cálculo, 
+        raise ValueError(f"""Foi usado o número {n}. Para este cálculo, 
                          o parâmetro deve ser inteiro""")
     if sqrt(n).is_integer():
-        raise ValueError("""Foi usado o número {}. Para este cálculo, o 
+        raise ValueError(f"""Foi usado o número {n}. Para este cálculo, o 
                          parâmetro não pode ser um quadrado perfeito""")
     # Esta parte da função serve somente para encontrar o primeiro valor para 
     # o algoritmo recursivo
@@ -95,9 +95,9 @@ def chakravala_rec(n):
     # parâmetro. Geralmente acontece a números que estão muito perto de um 
     # número quadrado.
     if k == 1:
-        dictio = {'solution_x': a,
-                'solution_y': b,
-                'iterations' : 1}
+        dictio = {'sol_x': a,
+                'sol_y': b,
+                'its' : 1}
         return dictio
     # Invocamos a função recursiva para simplificar os cálculos.
     else:
