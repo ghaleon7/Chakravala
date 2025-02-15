@@ -75,12 +75,19 @@ def chakravala_terno(n):
     O número n deve ser inteiro, positivo e não-quadrado.
     Devolve um terno com as soluções de x, y
     A última coordenada, k, confirma que obtemos 1 com estas soluções
+    
     Argumentos:
-        n - int
+    >> n - int
+    
     Exemplo:
-        x^2 - 3y^2 = 1
-        Solução: x = 7, y = 4
-        Deve devolver: (7,4,1)
+    x^2 - 2y^2 = 1
+    Solução: x = 3, y = 2
+    >> chak_terno(2)
+    >> (3,2,1)
+    x^2 - 13y^2 = 1
+    Solução: x = 649, y = 180
+    >> chak_terno(13)
+    >> (649, 180, 1)
     """
     a = chakravala(n)['solution_x']
     b = chakravala(n)['solution_y']
