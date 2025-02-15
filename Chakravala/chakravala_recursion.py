@@ -102,3 +102,28 @@ def chakravala_rec(n):
     # Invocamos a função recursiva para simplificar os cálculos.
     else:
         return _chak_recu(a,b,n)
+
+def chak_terno(N):
+    """
+    Este método resolve a equação x^2 - Ny^2 = 1 com soluções inteiras.
+    O número n deve ser inteiro, positivo e não-quadrado.
+    Devolve um terno com as soluções de x, y
+    A última coordenada, k, confirma que obtemos 1 com estas soluções
+    
+    Argumentos:
+        >> n - int
+    Exemplo:
+    x^2 - 2y^2 = 1
+    Solução: x = 3, y = 2
+        >> chak_terno(2)
+        >> (3,2,1)
+    x^2 - 13y^2 = 1
+    Solução: x = 649, y = 180
+        >> chak_terno(13)
+        >> (649, 180, 1)
+    """
+    a = chakravala(N)['sol_x']
+    b = chakravala(N)['sol_y']
+    k = a**2 - N*b**2
+    results = (a,b,k)
+    return results
