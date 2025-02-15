@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import numpy as np
+import math
 
 # Cálculo do máximo divisor comum
 def gcdxy(a, b):
@@ -72,15 +72,27 @@ def m_method(a,b,k,n):
     Argumentos:
         a,b,k,n - int
     Devolve:
-        vect[mins] - int
+        m - int
     Exemplo:
         m_method(2,1,2,2)
             >> 2
     """
-    first_m = (-a*modinv(b,k)) % abs(k)
-    while abs(first_m) < np.sqrt(n):
-        first_m = first_m + abs(k)
-    vect = [first_m, first_m - abs(k)]
-    quadrated_m_possible = [abs(i**2 - n) for i in vect]
-    mins = np.argmin(quadrated_m_possible)
-    return vect[mins]
+    #   Calcula o primeiro valor de m
+    m_1 = (-a*modinv(b,k)) % abs(k)  
+    
+    #   Queremos que o valor de |m^2 - n| seja mínimo
+    while abs(m_1) < math.sqrt(n):
+        m_1 = m_1 + abs(k)
+    
+    #   Com as somas anteriores, podemos ter passado um valor menor
+    m_0 = m_1 - abs(k)
+    
+    #   Comparamos os outputs
+    appr_1 = abs(m_1**2-n)
+    appr_0 = abs(m_0**2-n)
+    
+    #   Procuramos, dos dois valores a testar, qual nos dá um valor mínimo
+    if appr_1 - appr_0 > 0:
+        return m_0
+    else:
+        return m_1
