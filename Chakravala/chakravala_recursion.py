@@ -54,7 +54,7 @@ def _chak_recu(a,b,N,i=2):
     return ans
 
 
-def chakravala_rec(n):
+def chakravala(n):
     """
     Esta função resolve a equação de Pell x^2 - ny^2 = 1 em números inteiros.
     O input "n" deve ser positivo, inteiro e não-quadrado. 
